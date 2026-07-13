@@ -53,7 +53,7 @@ project = PythonProject(
 pyproject = next(
     component
     for component in project.components
-    if isinstance(component, PyprojectTomlFile),
+    if isinstance(component, PyprojectTomlFile)
 )
 
 apply_pep621_overrides(pyproject)
