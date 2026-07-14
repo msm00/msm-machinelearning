@@ -45,7 +45,12 @@ project = PythonProject(
     deps=[f"python@{PYTHON_RANGE}",
           "beautifulsoup4@4.12.3",
           "markdownify@0.6.5",
-          "requests@2.28.2"
+          "requests@2.28.2",
+          "numpy@2.5.0",
+          "pandas@3.0.3",
+          "scikit-learn@1.8.0",
+          "ollama@0.5.3",
+          "chromadb@1.0.20"
           ],
 
 )
@@ -57,5 +62,11 @@ pyproject = next(
 )
 
 apply_pep621_overrides(pyproject)
+
+rag_index_task = project.add_task("rag:index")
+rag_index_task.exec("python -m msm_machinelearning.rag.index_docs")
+
+rag_ask_task = project.add_task("rag:ask")
+rag_ask_task.exec('python -m msm_machinelearning.rag.ask "$@"', receive_args=True)
 
 project.synth()
